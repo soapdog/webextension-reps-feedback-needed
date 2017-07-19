@@ -1,16 +1,37 @@
 var state = {
-    issues: []
+    status: "loading",
+    issues: [],
+    refresh: function() {
+        state.status = "loading";
+         return m.request({
+            method: "GET",
+            url: "https://api.github.com/repos/mozilla/reps/issues?labels=Council Feedback Needed"
+        })
+        .then(function(result) {
+            console.log("request", result);
+            state.issues = result;
+            state.status = "loaded";
+        });
+    }
 }
 
 var Header = {
-    view: function() {
+    view: function(vnode) {
+        function refreshIssuesList() {
+            state.refresh();
+        }
         return m("nav.navbar.reps-header", [
             m(".navbar-brand", [
                 m("a.navbar-item", {href: "https://reps.mozilla.org"}, [
                     m("img", {src: "http://reps.mozilla.org/static/base/img/remo/remo_logo_medium.47fcd5d1baf0.png"}),
                     m("h1", "Mozilla Reps")
                 ]),
-                m("a.navbar-item", {href: "https://github.com/soapdog/webextension-reps-feedback-needed"}, "GH")
+                m("a.navbar-item", {href: "https://github.com/soapdog/webextension-reps-feedback-needed"}, [
+                    m("i.fa.fa-github")
+                ]),
+                m("a.navbar-item", {onclick: refreshIssuesList}, [
+                    m("i.fa.fa-refresh", {class: state.status == "loading" ? "fa-spin" : ""})
+                ])
             ])
         ])
     }
@@ -18,14 +39,7 @@ var Header = {
 
 var IssuesList = {
     oninit: function(vnode) {
-        return m.request({
-            method: "GET",
-            url: "https://api.github.com/repos/mozilla/reps/issues?labels=Council Feedback Needed"
-        })
-        .then(function(result) {
-            console.log("request", result);
-            state.issues = result;
-        });
+       state.refresh();
     },
     onupdate: function() {
         console.log("update");
