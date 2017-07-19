@@ -1,8 +1,8 @@
 {
 
   "manifest_version": 2,
-  "name": "Reps Feedback Needed",
-  "description": "Displays a sidebar that lets you help with Reps feedback.",
+  "name": "Reps Council - Feedback Needed",
+  "description": "Displays a sidebar that lists all Rep GitHub issues that need Council's attention/ feedback.",
   "version": "2.0",
   "applications": {
     "gecko": {
@@ -19,7 +19,7 @@
       "48": "icons/icon_48.png",
       "96": "icons/icon_96.png"
     },
-    "default_title" : "Reps Feedback Needed",
+    "default_title" : "Reps Council - Feedback Needed",
     "default_panel": "index.html"
   },
 
