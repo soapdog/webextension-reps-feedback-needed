@@ -18,3 +18,19 @@
 .detail-control a {
     flex: 1;
 }
+
+.content {
+    padding: 0 15px 30px 15px;
+}
+
+.card-content {
+  padding: 10px 10px;
+}
+
+.card-content .content {
+  padding: 0 0;
+}
+
+a {
+    color: #558194;
+}
